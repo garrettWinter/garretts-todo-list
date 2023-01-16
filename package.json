@@ -1,14 +1,23 @@
 {
-  "name": "note-taker",
+  "name": "todo-list",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application that allows you to create a todo list that is saved and accessed online.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Garrett Winter",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.16.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garrettWinter/garretts-todo-list.git"
+  },
+  "bugs": {
+    "url": "https://github.com/garrettWinter/garretts-todo-list/issues"
+  },
+  "homepage": "https://github.com/garrettWinter/garretts-todo-list#readme"
 }
