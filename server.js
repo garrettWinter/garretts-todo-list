@@ -1,5 +1,3 @@
-let noteData = require('./db/db.json'); /// May need to move this
-
 const { v4: uuidv4 } = require('uuid');
 
 const express = require('express');
@@ -13,6 +11,8 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.json()); //This is required so that express middleware can use json data.
 app.use(express.urlencoded({ extended: true })); // This will have the middleware update special chars to encoded values
+
+let noteData = require('./db/db.json'); /// May need to move this
 
 // GET Route for the notes page
 app.get('/notes', (req, res) =>
@@ -58,14 +58,15 @@ app.post('/api/notes', (req, res) => {
           : console.info('Successfully updated reviews!')
     );
 
+        //Re-updating Note data after the POST
+        noteData = require('./db/db.json');
+
     const response = {
       status: 'success',
       body: newNote,
     };
-    res.status(201).json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
-    
-    //Re-updating Note data after the POST
-    noteData = require('./db/db.json');
+   res.status(201).json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
+
   });
 });
 
