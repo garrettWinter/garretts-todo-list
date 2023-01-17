@@ -1,8 +1,9 @@
 const noteData = require('./db/db.json'); /// May need to move this
-
+const { v4: uuidv4 } = require('uuid');
 
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const PORT = process.env.PORT || 3001;
 
@@ -12,51 +13,60 @@ app.use(express.static('public'));
 app.use(express.json()); //This is required so that express middleware can use json data.
 app.use(express.urlencoded({ extended: true })); // This will have the middleware update special chars to encoded values
 
-//HTML Specific Routes
-
 // GET Route for the notes page
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
 
-//API Routes
-
+//API GET route for notes to return all note data
 app.get('/api/notes', (req, res) => res.json(noteData));
 
 // POST request to add a review
 app.post('/api/notes', (req, res) => {
   // Log that a POST request was received
-  console.info(`${req.method} request received to add a new note`);
+  console.log(`${req.method} request received to add a new note`);
 
   console.log("about to log req.body:")
   console.log(req.body)
-  // Destructuring assignment for the items in req.body
+  // // Destructuring assignment for the items in req.body
   const { title, text } = req.body;
 
   // Variable for the object we will save
   const newNote = {
     title,
     text,
+    id: uuidv4(),
   };
+  console.log("about to log newNote:")
+  console.log(newNote)
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+
+    //Getting pre-saved data
+    const savedData = JSON.parse(data);
+
+    //Adding new note to the array
+    savedData.push(newNote);
+
+    fs.writeFile(
+        './db/db.json', JSON.stringify(savedData, null, 1),
+        (writeErr) =>
+        writeErr
+          ? console.error(writeErr)
+          : console.info('Successfully updated reviews!')
+    );
 
   const response = {
     status: 'success',
     body: newNote,
   };
-  console.log("about to log response:")
-  console.log(response);
-  res.status(201).json(response);
-
+  res.status(201).json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
+});
+});
 
 // Univeral Route for homepage
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
-
-  }
-);
-
-
 
 
 
