@@ -40,6 +40,16 @@ const saveNote = (note) =>
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
+  })
+
+  .then((res) => res.json())
+  .then((data) => {
+    console.log('Successful POST request:', data);
+    console.log(data)
+    return data;
+  })
+  .catch((error) => {
+    console.error('Error in POST request:', error);
   });
 
 const deleteNote = (id) =>
@@ -66,11 +76,16 @@ const renderActiveNote = () => {
   }
 };
 
+
+
 const handleNoteSave = () => {
+  console.log("handleNoteSave has run")
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
   };
+  console.log("Logging newNote below:");
+  console.log(newNote)
   saveNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
