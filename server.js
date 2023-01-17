@@ -27,24 +27,25 @@ app.get('/api/notes', (req, res) => res.json(noteData));
 app.post('/api/notes', (req, res) => {
   // Log that a POST request was received
   console.info(`${req.method} request received to add a new note`);
+
+  console.log("about to log req.body:")
   console.log(req.body)
   // Destructuring assignment for the items in req.body
-  const {title, text} = req.body;
+  const { title, text } = req.body;
 
-  // // If all the required properties are present
- 
-    // Variable for the object we will save
-    const newNote = {
-      title,
-      text,
-    };
+  // Variable for the object we will save
+  const newNote = {
+    title,
+    text,
+  };
 
-    const response = {
-      status: 'success',
-      body: newNote,
-    };
-    console.log(response);
-    res.status(201).json(response);
+  const response = {
+    status: 'success',
+    body: newNote,
+  };
+  console.log("about to log response:")
+  console.log(response);
+  res.status(201).json(response);
 
 
 // Univeral Route for homepage
