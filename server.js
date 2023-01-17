@@ -1,4 +1,5 @@
-const noteData = require('./db/db.json'); /// May need to move this
+let noteData = require('./db/db.json'); /// May need to move this
+
 const { v4: uuidv4 } = require('uuid');
 
 const express = require('express');
@@ -19,7 +20,9 @@ app.get('/notes', (req, res) =>
 );
 
 //API GET route for notes to return all note data
-app.get('/api/notes', (req, res) => res.json(noteData));
+app.get('/api/notes', (req, res) => {
+  res.status(200).json(noteData);
+});
 
 // POST request to add a review
 app.post('/api/notes', (req, res) => {
@@ -48,19 +51,22 @@ app.post('/api/notes', (req, res) => {
     savedData.push(newNote);
 
     fs.writeFile(
-        './db/db.json', JSON.stringify(savedData, null, 1),
-        (writeErr) =>
+      './db/db.json', JSON.stringify(savedData, null, 1),
+      (writeErr) =>
         writeErr
           ? console.error(writeErr)
           : console.info('Successfully updated reviews!')
     );
 
-  const response = {
-    status: 'success',
-    body: newNote,
-  };
-  res.status(201).json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
-});
+    const response = {
+      status: 'success',
+      body: newNote,
+    };
+    res.status(201).json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
+    
+    //Re-updating Note data after the POST
+    noteData = require('./db/db.json');
+  });
 });
 
 // Univeral Route for homepage
