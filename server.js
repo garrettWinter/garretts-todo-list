@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(express.json()); //This is required so that express middleware can use json data.
 app.use(express.urlencoded({ extended: true })); // This will have the middleware update special chars to encoded values
 
-let noteData = require('./db/db.json'); /// May need to move this
+let noteData = require('./db/db.json'); 
 
 // GET Route for the notes page
 app.get('/notes', (req, res) =>
@@ -58,14 +58,14 @@ app.post('/api/notes', (req, res) => {
           : console.info('Successfully added the new note!')
     );
 
-        //Re-updating Note data after the POST
-        noteData = require('./db/db.json');
+    //Re-updating Note data after the POST
+    noteData = savedData;
 
     const response = {
       status: 'success',
       body: newNote,
     };
-   res.status(201).json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
+    res.status(201).json(response); 
 
   });
 });
@@ -83,18 +83,20 @@ app.delete('/api/notes/:id', (req, res) => {
     console.log(deleteIndex);
 
 
-      if (deleteIndex === -1) {
-    const response = {
-      status: `Cannot find that ID`,
-    };
-    res.status(404).json(response);
-    console.log('Delete request received for an ID that was not found.')
-    return;
-  }
+    if (deleteIndex === -1) {
+      const response = {
+        status: `Cannot find that ID`,
+      };
+      res.status(404).json(response);
+      console.log('Delete request received for an ID that was not found.')
+      return;
+    }
 
     //Deleteing the specific id from the array
     existingData.splice(deleteIndex, 1);
 
+    //Re-updating Note data after the POST
+    noteData = existingData;
 
     fs.writeFile(
       './db/db.json', JSON.stringify(existingData, null, 1),
@@ -107,7 +109,7 @@ app.delete('/api/notes/:id', (req, res) => {
     const response = {
       status: `ID: ${req.params.id}, has been deleted`,
     };
-   res.json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
+    res.json(response); 
 
   });
 });
