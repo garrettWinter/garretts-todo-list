@@ -1,15 +1,5 @@
 [
  {
-  "title": "Test Title 6",
-  "text": "Test text",
-  "id": "c119776c-40c9-47f7-9b99-08b63ce651ba"
- },
- {
-  "title": "Test Title 6",
-  "text": "Test text",
-  "id": "dd1291e4-8810-40b8-a109-bc44299fd07b"
- },
- {
   "title": "Testing via HTML",
   "text": "This was inputted using the HTML site and not via Insomnia.",
   "id": "af86648f-d70c-4ae0-96d4-5d0f835e745f"
@@ -123,5 +113,10 @@
   "title": "123dfgdfg",
   "text": "dfgdfgdfg",
   "id": "29dbcb30-26c2-4fe0-8945-36009c505c8d"
+ },
+ {
+  "title": "Insomina Testing",
+  "text": "New test again",
+  "id": "f5c14ace-ec36-4525-a70e-9dc1b03c43b1"
  }
 ]
