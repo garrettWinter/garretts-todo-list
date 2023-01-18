@@ -14,10 +14,6 @@ app.use(express.urlencoded({ extended: true })); // This will have the middlewar
 
 let noteData = require('./db/db.json'); /// May need to move this
 
-// let deleteIndex = noteData.findIndex(p => p.id === 'f5c14ace-ec36-4525-a70e-9dc1b03c43b1');
-// noteData.splice(deleteIndex, 1);
-// console.log (noteData);
-
 // GET Route for the notes page
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/notes.html'))
@@ -74,36 +70,29 @@ app.post('/api/notes', (req, res) => {
   });
 });
 
-//////////////////////////////////////////////////////////////////////////////
-
-/*
-read file into variable
-find index of row with that ID
-If no row, throw error
-remove that row
-Overwrite json file
-
-
-  params: { id: 'c119776c-40c9-47f7-9b99-08b63ce651ba' },
-*/
-
 // DELETE request to delete a review
 app.delete('/api/notes/:id', (req, res) => {
   // Log that a POST request was received
-  console.log(`${req.method} request received to delete a note with ID ${req.params.id}`);
-
-  console.log("about to log req.body for a delete")
-  console.log()
+  console.log(`${req.method} request received to delete a note with ID:\n${req.params.id}\n`);
 
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
 
     //Getting pre-saved data
     let existingData = JSON.parse(data);
+    let deleteIndex = existingData.findIndex(p => p.id === req.params.id);
+    console.log(deleteIndex);
+
+
+      if (deleteIndex === -1) {
+    const response = {
+      status: `Cannot find that ID`,
+    };
+    res.status(404).json(response);
+    console.log('Delete request received for an ID that was not found.')
+    return;
+  }
 
     //Deleteing the specific id from the array
-    let deleteIndex = existingData.findIndex(p => p.id === req.params.id);
-    console.log(deleteIndex)
-    console.log()
     existingData.splice(deleteIndex, 1);
 
 
@@ -116,22 +105,17 @@ app.delete('/api/notes/:id', (req, res) => {
     );
 
     const response = {
-      status: `ID: ${req.body.id}, has been deleted`,
+      status: `ID: ${req.params.id}, has been deleted`,
     };
-   res.status(201).json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
+   res.json(response); // HOW TO KEY IN on various status? Seems we are seeing 200 here
 
   });
 });
-
-//////////////////////////////////////////////////////////////////////////////
-
 
 // Univeral Route for homepage
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
-
-
 
 
 app.listen(PORT, () => console.log(`Application listening http://localhost:${PORT}`));

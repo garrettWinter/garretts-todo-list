@@ -1,20 +1,5 @@
 [
  {
-  "title": "Testing via HTML",
-  "text": "This was inputted using the HTML site and not via Insomnia.",
-  "id": "af86648f-d70c-4ae0-96d4-5d0f835e745f"
- },
- {
-  "title": "Testing 123",
-  "text": "123",
-  "id": "54d20f45-5200-4064-a021-55679db97a21"
- },
- {
-  "title": "234234",
-  "text": "234234",
-  "id": "6d445d72-b556-4a54-8caf-d21ec9a39779"
- },
- {
   "title": "Test Title 6",
   "text": "Test text",
   "id": "76fa9b6c-8955-422c-a8df-3359b15f6c22"
@@ -103,20 +88,5 @@
   "title": "please be it",
   "text": "pretty please",
   "id": "befe5486-feca-457e-b83f-2c358ad17043"
- },
- {
-  "title": "try again",
-  "text": "123",
-  "id": "004c90a0-23e2-4385-8286-320836e36a0c"
- },
- {
-  "title": "123dfgdfg",
-  "text": "dfgdfgdfg",
-  "id": "29dbcb30-26c2-4fe0-8945-36009c505c8d"
- },
- {
-  "title": "Insomina Testing",
-  "text": "New test again",
-  "id": "f5c14ace-ec36-4525-a70e-9dc1b03c43b1"
  }
 ]
