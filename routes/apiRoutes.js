@@ -1,5 +1,6 @@
 const api = require('express').Router();
 
+
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
@@ -16,8 +17,6 @@ api.post('/notes', (req, res) => {
     // Log that a POST request was received
     console.log(`${req.method} request received to add a new note`);
 
-    console.log("about to log req.body:")
-    console.log(req.body)
     // // Destructuring assignment for the items in req.body
     const { title, text } = req.body;
 
@@ -27,14 +26,10 @@ api.post('/notes', (req, res) => {
         text,
         id: uuidv4(),
     };
-    console.log("about to log newNote:");
-    console.log(newNote);
+
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
 
         //Getting pre-saved data
-        console.log("about to log data");
-        console.log(data);
-
 
         const savedData = JSON.parse(data);
 
@@ -64,17 +59,14 @@ api.post('/notes', (req, res) => {
 
 // DELETE request to delete a review
 api.delete('/notes/:id', (req, res) => {
-    // Log that a DELETE request was received
-    console.log(`${req.method} request received to delete a note with ID:\n${req.params.id}\n`);
+    // Log that a POST request was received
+    console.log(`${req.method} request received to delete a note with ID:\n${req.params.id}`);
 
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
 
         //Getting pre-saved data
         let existingData = JSON.parse(data);
         let deleteIndex = existingData.findIndex(p => p.id === req.params.id);
-        console.log(deleteIndex);
-
-
         if (deleteIndex === -1) {
             const response = {
                 status: `Cannot find that ID`,
@@ -87,7 +79,7 @@ api.delete('/notes/:id', (req, res) => {
         //Deleteing the specific id from the array
         existingData.splice(deleteIndex, 1);
 
-        //Re-updating Note data after the DELETE
+        //Re-updating Note data after the POST
         noteData = existingData;
 
         fs.writeFile(
