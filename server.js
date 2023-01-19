@@ -8,7 +8,6 @@ const app = express();
 
 app.use(express.json()); //This is required so that express middleware can use json data.
 app.use(express.urlencoded({ extended: true })); // This will have the middleware update special chars to encoded values
-
 app.use(express.static('public'));
 
 app.use('/', routes);

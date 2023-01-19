@@ -5,6 +5,7 @@ const apiRouter = require('./apiRoutes.js');
 
 const app = express();
 
+//Defining route paths
 app.use('/api', apiRouter);
 app.use('/', htmlRouter);
 

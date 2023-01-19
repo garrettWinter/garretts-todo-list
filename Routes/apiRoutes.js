@@ -1,6 +1,4 @@
-const express = require('express');
 const api = require('express').Router();
-// // api.use(express.json()); //This is required so that express middleware can use json data.'
 
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
@@ -54,6 +52,7 @@ api.post('/notes', (req, res) => {
         //Re-updating Note data after the POST
         noteData = savedData;
 
+        //Assembling response
         const response = {
             status: 'success',
             body: newNote,
@@ -65,7 +64,7 @@ api.post('/notes', (req, res) => {
 
 // DELETE request to delete a review
 api.delete('/notes/:id', (req, res) => {
-    // Log that a POST request was received
+    // Log that a DELETE request was received
     console.log(`${req.method} request received to delete a note with ID:\n${req.params.id}\n`);
 
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -88,7 +87,7 @@ api.delete('/notes/:id', (req, res) => {
         //Deleteing the specific id from the array
         existingData.splice(deleteIndex, 1);
 
-        //Re-updating Note data after the POST
+        //Re-updating Note data after the DELETE
         noteData = existingData;
 
         fs.writeFile(
