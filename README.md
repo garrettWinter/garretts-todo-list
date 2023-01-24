@@ -39,7 +39,7 @@ Here is some information that you will need to be able to install and properly w
   
 Here are some details on how this application can be used:
   - To run this locally, in your CLI run "node server.js"
-  - To see this online you can go to URL
+  - To see this online you can go to https://rocky-retreat-01110.herokuapp.com/
       
 Below a screenshot(s) of the application:
   - ![Screenshot of the index page.](./public/assets/images/Screenshot-Index-Page.png)
